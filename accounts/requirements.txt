@@ -1,0 +1,7 @@
+Flask==2.0.1
+Werkzeug==2.0.1
+SQLAlchemy==1.4.22
+Flask-SQLAlchemy==2.5.1
+psycopg2-binary==2.9.1
+pyjwt==2.1.0
+Flasgger==0.9.5
