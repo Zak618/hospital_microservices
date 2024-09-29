@@ -32,3 +32,16 @@ services:
       - POSTGRES_PASSWORD=password
     depends_on:
       - db
+
+  timetable:
+    build: ./timetable
+    ports:
+      - "5003:5000"
+    environment:
+      - POSTGRES_DB=timetable_db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    depends_on:
+      - db
+      - hospitals
+      - accounts
