@@ -10,7 +10,7 @@ services:
       - "5432:5432"
     volumes:
       - ./init_db:/docker-entrypoint-initdb.d
-
+      
   accounts:
     build: ./accounts
     ports:
@@ -39,6 +39,19 @@ services:
       - "5003:5000"
     environment:
       - POSTGRES_DB=timetable_db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    depends_on:
+      - db
+      - hospitals
+      - accounts
+
+  documents:
+    build: ./documents
+    ports:
+      - "5004:5000"
+    environment:
+      - POSTGRES_DB=documents_db
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
     depends_on:
