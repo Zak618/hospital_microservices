@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
+    volumes:
+      - ./init_db:/docker-entrypoint-initdb.d
 
   accounts:
     build: ./accounts
@@ -15,6 +17,17 @@ services:
       - "5001:5000"
     environment:
       - POSTGRES_DB=accounts_db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    depends_on:
+      - db
+
+  hospitals:
+    build: ./hospitals
+    ports:
+      - "5002:5000"
+    environment:
+      - POSTGRES_DB=hospitals_db
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
     depends_on:
