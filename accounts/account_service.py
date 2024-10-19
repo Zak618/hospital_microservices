@@ -222,11 +222,13 @@ class SignIn(Resource):
         
         access_token = jwt.encode({
             'user_id': user.id,
+            'roles': user.roles.split(','),
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
         }, app.config['SECRET_KEY'])
         
         refresh_token = jwt.encode({
             'user_id': user.id,
+            'roles': user.roles.split(','),
             'exp': datetime.datetime.utcnow() + datetime.timedelta(days=7)
         }, app.config['SECRET_KEY'])
         

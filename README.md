@@ -1,3 +1,10 @@
+# Основное задание:
+
+1. Account URL: http://localhost:5001
+2. Hospital URL: http://localhost:5002
+3. Timetable URL: http://localhost:5003
+4. Document URL: http://localhost:5004
+
 # Дополнительная информация
 
 ## Проблема: Ошибка подключения к PostgreSQL
