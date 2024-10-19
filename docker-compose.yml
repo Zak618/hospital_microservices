@@ -10,7 +10,12 @@ services:
       - "5432:5432"
     volumes:
       - ./init_db:/docker-entrypoint-initdb.d
-      
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   accounts:
     build: ./accounts
     ports:
@@ -20,7 +25,8 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   hospitals:
     build: ./hospitals
@@ -31,7 +37,8 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   timetable:
     build: ./timetable
@@ -42,9 +49,12 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
     depends_on:
-      - db
-      - hospitals
-      - accounts
+      db:
+        condition: service_healthy
+      hospitals:
+        condition: service_started
+      accounts:
+        condition: service_started
 
   documents:
     build: ./documents
@@ -55,6 +65,9 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
     depends_on:
-      - db
-      - hospitals
-      - accounts
+      db:
+        condition: service_healthy
+      hospitals:
+        condition: service_started
+      accounts:
+        condition: service_started

@@ -15,9 +15,3 @@ CREATE TABLE IF NOT EXISTS "user" (
     roles VARCHAR(100) NOT NULL,
     is_deleted BOOLEAN DEFAULT FALSE
 );
-
-INSERT INTO "user" (first_name, last_name, username, password, roles) VALUES 
-('Admin', 'User', 'admin', crypt('admin', gen_salt('bf')), 'Admin'),
-('Manager', 'User', 'manager', crypt('manager', gen_salt('bf')), 'Manager'),
-('Doctor', 'User', 'doctor', crypt('doctor', gen_salt('bf')), 'Doctor'),
-('User', 'User', 'user', crypt('user', gen_salt('bf')), 'User');
